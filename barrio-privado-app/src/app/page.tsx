@@ -6,7 +6,7 @@ export default function HomePage() {
         {/* Imagen de fondo fija */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-fixed"
-          style={{ backgroundImage: "url('/heroElRemanso.png')" }}
+          style={{ backgroundImage: "url('/heroElRemanso.jpg')" }}
         />
 
         {/* Capa oscura encima */}
