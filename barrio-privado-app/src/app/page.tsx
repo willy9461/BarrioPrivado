@@ -1,103 +1,150 @@
-import Image from "next/image";
-
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <main className="min-h-screen">
+      {/* Hero con parallax */}
+      <section className="relative h-[100vh]">
+        {/* Imagen de fondo fija */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-fixed"
+          style={{ backgroundImage: "url('/heroElRemanso.png')" }}
         />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+        {/* Capa oscura encima */}
+        <div className="absolute inset-0 bg-black bg-opacity-50" />
+
+        {/* Contenido sobre el fondo */}
+        <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4">El Remanso</h1>
+          <p className="text-lg md:text-2xl mb-6 max-w-xl">
+            Naturaleza, tranquilidad y comunidad. <br />
+            Viví como soñás.
+          </p>
           <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#sobre"
+            className="bg-white text-black px-6 py-3 rounded hover:bg-gray-200 transition"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+            Conocé más
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Sección siguiente */}
+      <section
+        id="sobre"
+        className="min-h-screen bg-white flex items-center justify-center text-center p-8"
+      >
+        <div>
+          <h2 className="text-3xl font-semibold mb-4">Sobre El Remanso</h2>
+          <p className="max-w-2xl text-gray-700">
+            El Remanso es un barrio privado diseñado para vivir en contacto con
+            la naturaleza, con todas las comodidades modernas y un ambiente de
+            comunidad único.
+          </p>
+        </div>
+      </section>
+      <section
+        id="ubicacion"
+        className="min-h-screen bg-gray-100 flex items-center justify-center p-8"
+      >
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          {/* Texto descriptivo */}
+          <div>
+            <h2 className="text-3xl font-bold mb-4">Ubicación</h2>
+            <p className="text-gray-700 mb-6">
+              El Remanso está ubicado en una zona estratégica a minutos de la
+              ciudad, rodeado de naturaleza y con acceso directo a rutas
+              principales. Ideal para quienes buscan tranquilidad sin alejarse
+              del confort urbano.
+            </p>
+            <a
+              href="https://www.google.com/maps/place/El+Remanso,+Provincia+de+Buenos+Aires" // Reemplazá por tu ubicación exacta
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+            >
+              Ver en Google Maps
+            </a>
+          </div>
+
+          {/* Mapa embebido */}
+          <div className="w-full h-[400px] rounded-lg overflow-hidden shadow-lg">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3074.051401029997!2d-57.69190568924829!3d-30.250542240758712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95ad2937cad89ce1%3A0x65edbeeb80930cb9!2sBarrio%20El%20Remanso%20-%20Monte%20Caseros!5e1!3m2!1ses-419!2spt!4v1750616242446!5m2!1ses-419!2spt"
+              width="600"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+      <section
+  id="amenities"
+  className="bg-white py-20 px-6 md:px-10 lg:px-20 text-center"
+>
+  <h2 className="text-3xl md:text-4xl font-bold mb-12 text-gray-800">
+    Amenities del Barrio
+  </h2>
+
+  <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+    {/* Amenity 1 */}
+    <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
+      <div className="text-5xl mb-4 text-green-600">🏀</div>
+      <h3 className="text-xl font-semibold mb-2">Canchas deportivas</h3>
+      <p className="text-gray-600">
+        Espacios para fútbol, tenis y básquet con iluminación nocturna.
+      </p>
     </div>
+
+    {/* Amenity 2 */}
+    <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
+      <div className="text-5xl mb-4 text-blue-500">🏊‍♂️</div>
+      <h3 className="text-xl font-semibold mb-2">Piscina y solárium</h3>
+      <p className="text-gray-600">
+        Zona recreativa con pileta, reposeras y quincho techado.
+      </p>
+    </div>
+
+    {/* Amenity 3 */}
+    <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
+      <div className="text-5xl mb-4 text-yellow-500">🛡️</div>
+      <h3 className="text-xl font-semibold mb-2">Seguridad 24/7</h3>
+      <p className="text-gray-600">
+        Acceso controlado, cámaras y patrullaje las 24 horas.
+      </p>
+    </div>
+
+    {/* Amenity 4 */}
+    <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
+      <div className="text-5xl mb-4 text-pink-500">🏡</div>
+      <h3 className="text-xl font-semibold mb-2">Capilla</h3>
+      <p className="text-gray-600">
+        Capilla réplica exacta de la Porciúncula de San Francisco de Asís
+      </p>
+    </div>
+
+    {/* Amenity 5 */}
+    <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
+      <div className="text-5xl mb-4 text-indigo-500">🌳</div>
+      <h3 className="text-xl font-semibold mb-2">Espacios verdes</h3>
+      <p className="text-gray-600">
+        Parque central, senderos para caminar y laguna natural.
+      </p>
+    </div>
+
+    {/* Amenity 6 */}
+    <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
+      <div className="text-5xl mb-4 text-red-500">🚸</div>
+      <h3 className="text-xl font-semibold mb-2">Zona kids</h3>
+      <p className="text-gray-600">
+        Juegos infantiles seguros y entretenidos para los más chicos.
+      </p>
+    </div>
+  </div>
+</section>
+
+    </main>
   );
 }
