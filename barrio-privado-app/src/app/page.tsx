@@ -36,7 +36,7 @@ export default function HomePage() {
         <div>
           <h2 className="text-3xl font-semibold mb-4">Sobre El Remanso</h2>
           <p className="max-w-2xl text-gray-700">
-            El Remanso es un barrio privado diseñado para vivir en contacto con
+            El Remanso es un barrio cerrado diseñado para vivir en contacto con
             la naturaleza, con todas las comodidades modernas y un ambiente de
             comunidad único.
           </p>
@@ -52,9 +52,9 @@ export default function HomePage() {
             <h2 className="text-3xl font-bold mb-4">Ubicación</h2>
             <p className="text-gray-700 mb-6">
               El Remanso está ubicado en una zona estratégica a minutos de la
-              ciudad, rodeado de naturaleza y con acceso directo a rutas
-              principales. Ideal para quienes buscan tranquilidad sin alejarse
-              del confort urbano.
+              ciudad, rodeado de naturaleza y con acceso directo desde la ruta
+              129.Ideal para quienes buscan tranquilidad sin alejarse del
+              confort urbano.
             </p>
             <a
               href="https://www.google.com/maps/place/El+Remanso,+Provincia+de+Buenos+Aires" // Reemplazá por tu ubicación exacta
@@ -81,70 +81,69 @@ export default function HomePage() {
         </div>
       </section>
       <section
-  id="amenities"
-  className="bg-white py-20 px-6 md:px-10 lg:px-20 text-center"
->
-  <h2 className="text-3xl md:text-4xl font-bold mb-12 text-gray-800">
-    Amenities del Barrio
-  </h2>
+        id="amenities"
+        className="bg-white py-20 px-6 md:px-10 lg:px-20 text-center"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-gray-800">
+          Amenities del Barrio
+        </h2>
 
-  <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-    {/* Amenity 1 */}
-    <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
-      <div className="text-5xl mb-4 text-green-600">🏀</div>
-      <h3 className="text-xl font-semibold mb-2">Canchas deportivas</h3>
-      <p className="text-gray-600">
-        Espacios para fútbol, tenis y básquet con iluminación nocturna.
-      </p>
-    </div>
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Amenity 1 */}
+          <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
+            <div className="text-5xl mb-4 text-green-600">🏀</div>
+            <h3 className="text-xl font-semibold mb-2">Canchas deportivas</h3>
+            <p className="text-gray-600">
+              Espacios para fútbol, tenis y básquet con iluminación nocturna.
+            </p>
+          </div>
 
-    {/* Amenity 2 */}
-    <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
-      <div className="text-5xl mb-4 text-blue-500">🏊‍♂️</div>
-      <h3 className="text-xl font-semibold mb-2">Piscina y solárium</h3>
-      <p className="text-gray-600">
-        Zona recreativa con pileta, reposeras y quincho techado.
-      </p>
-    </div>
+          {/* Amenity 2 */}
+          <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
+            <div className="text-5xl mb-4 text-blue-500">🏊‍♂️</div>
+            <h3 className="text-xl font-semibold mb-2">Piscina y solárium</h3>
+            <p className="text-gray-600">
+              Zona recreativa con pileta, reposeras y quincho techado.
+            </p>
+          </div>
 
-    {/* Amenity 3 */}
-    <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
-      <div className="text-5xl mb-4 text-yellow-500">🛡️</div>
-      <h3 className="text-xl font-semibold mb-2">Seguridad 24/7</h3>
-      <p className="text-gray-600">
-        Acceso controlado, cámaras y patrullaje las 24 horas.
-      </p>
-    </div>
+          {/* Amenity 3 */}
+          <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
+            <div className="text-5xl mb-4 text-yellow-500">🛡️</div>
+            <h3 className="text-xl font-semibold mb-2">Seguridad 24/7</h3>
+            <p className="text-gray-600">
+              Acceso controlado, cámaras de vigilancia y sistemas de alarmas.
+            </p>
+          </div>
 
-    {/* Amenity 4 */}
-    <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
-      <div className="text-5xl mb-4 text-pink-500">🏡</div>
-      <h3 className="text-xl font-semibold mb-2">Capilla</h3>
-      <p className="text-gray-600">
-        Capilla réplica exacta de la Porciúncula de San Francisco de Asís
-      </p>
-    </div>
+          {/* Amenity 4 */}
+          <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
+            <div className="text-5xl mb-4 text-pink-500">🏡</div>
+            <h3 className="text-xl font-semibold mb-2">Capilla</h3>
+            <p className="text-gray-600">
+              Capilla réplica exacta de la Porciúncula de San Francisco de Asís
+            </p>
+          </div>
 
-    {/* Amenity 5 */}
-    <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
-      <div className="text-5xl mb-4 text-indigo-500">🌳</div>
-      <h3 className="text-xl font-semibold mb-2">Espacios verdes</h3>
-      <p className="text-gray-600">
-        Parque central, senderos para caminar y laguna natural.
-      </p>
-    </div>
+          {/* Amenity 5 */}
+          <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
+            <div className="text-5xl mb-4 text-indigo-500">🌳</div>
+            <h3 className="text-xl font-semibold mb-2">Espacios verdes</h3>
+            <p className="text-gray-600">
+              Senderos para caminar y lago artificial.
+            </p>
+          </div>
 
-    {/* Amenity 6 */}
-    <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
-      <div className="text-5xl mb-4 text-red-500">🚸</div>
-      <h3 className="text-xl font-semibold mb-2">Zona kids</h3>
-      <p className="text-gray-600">
-        Juegos infantiles seguros y entretenidos para los más chicos.
-      </p>
-    </div>
-  </div>
-</section>
-
+          {/* Amenity 6 */}
+          <div className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition">
+            <div className="text-5xl mb-4 text-red-500">🚸</div>
+            <h3 className="text-xl font-semibold mb-2">Zona kids</h3>
+            <p className="text-gray-600">
+              Juegos infantiles seguros y entretenidos para los más chicos.
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
