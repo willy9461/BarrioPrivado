@@ -85,7 +85,7 @@ export default function HomePage() {
         className="bg-white py-20 px-6 md:px-10 lg:px-20 text-center"
       >
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-gray-800">
-          Amenities del Barrio
+          Instalaciones del Barrio
         </h2>
 
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
