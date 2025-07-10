@@ -1,8 +1,50 @@
+"use client";
+import Link from "next/link";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+import Image from "next/image";
+
 export default function HomePage() {
   return (
     <main className="min-h-screen">
+      {/* Navbar */}
+      <nav className="w-full flex items-center justify-between px-8 py-4 bg-white bg-opacity-80 shadow-md fixed top-0 left-0 z-20">
+        <Link
+          href="/"
+          className="text-2xl font-bold text-gray-800 hover:text-blue-500 transition"
+        >
+          El Remanso
+        </Link>
+        <div className="flex items-center gap-6">
+          <a
+            href="#sobre"
+            className="text-gray-700 hover:text-blue-500 font-medium transition"
+          >
+            Sobre nosotros
+          </a>
+          <a
+            href="#ubicacion"
+            className="text-gray-700 hover:text-blue-500 font-medium transition"
+          >
+            Ubicación
+          </a>
+          <a
+            href="#amenities"
+            className="text-gray-700 hover:text-blue-500 font-medium transition"
+          >
+            Instalaciones
+          </a>
+          <a
+            href="/login"
+            className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-500 transition font-semibold ml-4"
+          >
+            Iniciar sesión
+          </a>
+        </div>
+      </nav>
+
       {/* Hero con parallax */}
-      <section className="relative h-[100vh]">
+      <section className="relative h-[100vh] pt-20">
         {/* Imagen de fondo fija */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-fixed"
@@ -40,6 +82,40 @@ export default function HomePage() {
             la naturaleza, con todas las comodidades modernas y un ambiente de
             comunidad único.
           </p>
+          <Swiper
+            modules={[Navigation, Pagination]}
+            navigation
+            pagination={{ clickable: true }}
+            className="my-8 w-full max-w-3xl"
+          >
+            <SwiperSlide>
+              <Image src="/remanso01.jpg" alt="Imagen 1" className="rounded-lg shadow" width={900} height={600} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src="/remanso02.jpg" alt="Imagen 2" className="rounded-lg shadow" width={900} height={600} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src="/remanso03.jpg" alt="Imagen 3" className="rounded-lg shadow" width={900} height={600} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src="/remanso04.jpg" alt="Imagen 4" className="rounded-lg shadow" width={900} height={600} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src="/remanso05.jpg" alt="Imagen 5" className="rounded-lg shadow" width={900} height={600} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src="/remanso06.jpg" alt="Imagen 6" className="rounded-lg shadow" width={900} height={600} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src="/remanso07.jpg" alt="Imagen 7" className="rounded-lg shadow" width={900} height={600} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src="/remanso08.jpg" alt="Imagen 8" className="rounded-lg shadow" width={900} height={600} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src="/remanso09.jpg" alt="Imagen 9" className="rounded-lg shadow" width={900} height={600} />
+            </SwiperSlide>
+          </Swiper>
         </div>
       </section>
       <section
