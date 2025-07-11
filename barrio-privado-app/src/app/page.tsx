@@ -1,42 +1,75 @@
 "use client";
 import Link from "next/link";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function HomePage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <main className="min-h-screen">
       {/* Navbar */}
-      <nav className="w-full flex items-center justify-between px-8 py-4 bg-white bg-opacity-80 shadow-md fixed top-0 left-0 z-20">
+      <nav className="w-full flex items-center justify-between px-8 py-4 bg-black bg-opacity-80 shadow-md fixed top-0 left-0 z-20">
         <Link
           href="/"
-          className="text-2xl font-bold text-gray-800 hover:text-blue-500 transition"
+          className="text-2xl font-bold text-gray-100 hover:text-blue-400 transition"
         >
           El Remanso
         </Link>
-        <div className="flex items-center gap-6">
+        {/* Botón hamburguesa para mobile */}
+        <button
+          className="md:hidden text-gray-100 focus:outline-none"
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-label="Abrir menú"
+        >
+          <svg
+            className="w-8 h-8"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+        {/* Menú de navegación */}
+        <div
+          className={`flex-col md:flex-row md:flex items-center gap-6 absolute md:static top-full left-0 w-full md:w-auto bg-black bg-opacity-95 md:bg-transparent transition-all duration-300 z-30 ${
+            menuOpen ? "flex" : "hidden md:flex"
+          }`}
+        >
           <a
             href="#sobre"
-            className="text-gray-700 hover:text-blue-500 font-medium transition"
+            className="text-gray-100 hover:text-blue-400 font-medium transition py-4 md:py-0 text-lg md:text-base text-center w-full md:w-auto"
+            onClick={() => setMenuOpen(false)}
           >
             Sobre nosotros
           </a>
           <a
             href="#ubicacion"
-            className="text-gray-700 hover:text-blue-500 font-medium transition"
+            className="text-gray-100 hover:text-blue-400 font-medium transition py-4 md:py-0 text-lg md:text-base text-center w-full md:w-auto"
+            onClick={() => setMenuOpen(false)}
           >
             Ubicación
           </a>
           <a
             href="#amenities"
-            className="text-gray-700 hover:text-blue-500 font-medium transition"
+            className="text-gray-100 hover:text-blue-400 font-medium transition py-4 md:py-0 text-lg md:text-base text-center w-full md:w-auto"
+            onClick={() => setMenuOpen(false)}
           >
             Instalaciones
           </a>
           <a
             href="/login"
-            className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-500 transition font-semibold ml-4"
+            className="bg-blue-500 text-white px-5 py-2 rounded hover:bg-blue-100 hover:text-blue-800 transition font-semibold ml-4 text-center w-full md:w-auto"
+            onClick={() => setMenuOpen(false)}
           >
             Iniciar sesión
           </a>
@@ -76,7 +109,9 @@ export default function HomePage() {
         className="min-h-screen bg-white flex items-center justify-center text-center p-8"
       >
         <div>
-          <h2 className="text-3xl font-semibold mb-4">Sobre El Remanso</h2>
+          <h2 className="text-3xl font-semibold mb-4 mt-12">
+            Sobre El Remanso
+          </h2>
           <p className="max-w-2xl text-gray-700">
             El Remanso es un barrio cerrado diseñado para vivir en contacto con
             la naturaleza, con todas las comodidades modernas y un ambiente de
@@ -89,31 +124,85 @@ export default function HomePage() {
             className="my-8 w-full max-w-3xl"
           >
             <SwiperSlide>
-              <Image src="/remanso01.jpg" alt="Imagen 1" className="rounded-lg shadow" width={900} height={600} />
+              <Image
+                src="/remanso05.jpg"
+                alt="Imagen 5"
+                className="rounded-lg shadow"
+                width={900}
+                height={600}
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <Image src="/remanso02.jpg" alt="Imagen 2" className="rounded-lg shadow" width={900} height={600} />
+              <Image
+                src="/remanso02.jpg"
+                alt="Imagen 2"
+                className="rounded-lg shadow"
+                width={900}
+                height={600}
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <Image src="/remanso03.jpg" alt="Imagen 3" className="rounded-lg shadow" width={900} height={600} />
+              <Image
+                src="/remanso03.jpg"
+                alt="Imagen 3"
+                className="rounded-lg shadow"
+                width={900}
+                height={600}
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <Image src="/remanso04.jpg" alt="Imagen 4" className="rounded-lg shadow" width={900} height={600} />
+              <Image
+                src="/remanso04.jpg"
+                alt="Imagen 4"
+                className="rounded-lg shadow"
+                width={900}
+                height={600}
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <Image src="/remanso05.jpg" alt="Imagen 5" className="rounded-lg shadow" width={900} height={600} />
+              <Image
+                src="/remanso01.jpg"
+                alt="Imagen 51"
+                className="rounded-lg shadow"
+                width={900}
+                height={600}
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <Image src="/remanso06.jpg" alt="Imagen 6" className="rounded-lg shadow" width={900} height={600} />
+              <Image
+                src="/remanso06.jpg"
+                alt="Imagen 6"
+                className="rounded-lg shadow"
+                width={900}
+                height={600}
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <Image src="/remanso07.jpg" alt="Imagen 7" className="rounded-lg shadow" width={900} height={600} />
+              <Image
+                src="/remanso07.jpg"
+                alt="Imagen 7"
+                className="rounded-lg shadow"
+                width={900}
+                height={600}
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <Image src="/remanso08.jpg" alt="Imagen 8" className="rounded-lg shadow" width={900} height={600} />
+              <Image
+                src="/remanso08.jpg"
+                alt="Imagen 8"
+                className="rounded-lg shadow"
+                width={900}
+                height={600}
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <Image src="/remanso09.jpg" alt="Imagen 9" className="rounded-lg shadow" width={900} height={600} />
+              <Image
+                src="/remanso09.jpg"
+                alt="Imagen 9"
+                className="rounded-lg shadow"
+                width={900}
+                height={600}
+              />
             </SwiperSlide>
           </Swiper>
         </div>
@@ -219,6 +308,65 @@ export default function HomePage() {
             </p>
           </div>
         </div>
+      </section>
+      <section
+        id="contacto"
+        className="bg-gray-900 text-white py-20 px-6 md:px-10 lg:px-20 text-center"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold mb-8">Contacto</h2>
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            const form = e.target as HTMLFormElement;
+            const data = {
+              nombre: (form.elements.namedItem("nombre") as HTMLInputElement)
+                .value,
+              email: (form.elements.namedItem("email") as HTMLInputElement).value,
+              mensaje: (form.elements.namedItem("mensaje") as HTMLTextAreaElement)
+                .value,
+            };
+            const res = await fetch("/api/contact", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            });
+            if (res.ok) {
+              alert("¡Mensaje enviado!");
+              form.reset();
+            } else {
+              alert("Error al enviar el mensaje.");
+            }
+          }}
+          className="max-w-xl mx-auto flex flex-col gap-6"
+        >
+          <input
+            type="text"
+            name="nombre"
+            placeholder="Tu nombre"
+            required
+            className="p-3 rounded text-black"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Tu email"
+            required
+            className="p-3 rounded text-black"
+          />
+          <textarea
+            name="mensaje"
+            placeholder="Tu mensaje"
+            required
+            className="p-3 rounded text-black"
+            rows={5}
+          />
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded transition"
+          >
+            Enviar
+          </button>
+        </form>
       </section>
     </main>
   );
