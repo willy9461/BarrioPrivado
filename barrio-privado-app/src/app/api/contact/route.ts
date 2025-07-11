@@ -1,6 +1,15 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
+function isErrorWithMessage(error: unknown): error is { message: string } {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "message" in error &&
+    typeof (error as { message: unknown }).message === "string"
+  );
+}
+
 export async function POST(request: Request) {
   const { nombre, email, mensaje } = await request.json();
 
@@ -23,7 +32,11 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ ok: true });
-  } catch (error: any) {
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    let errorMessage = "Error desconocido";
+    if (isErrorWithMessage(error)) {
+      errorMessage = error.message;
+    }
+    return NextResponse.json({ ok: false, error: errorMessage }, { status: 500 });
   }
 }
