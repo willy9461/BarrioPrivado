@@ -32,33 +32,33 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   };
 
   return (
-    <div className="min-h-screen flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-gray-800 text-white p-6">
-        <h1 className="text-2xl font-bold mb-6">🏘️ El Remanso</h1>
-        <nav className="space-y-4">
+    <div className="min-h-screen flex flex-col">
+      {/* Navbar  */}
+      <nav className="w-full flex items-center justify-between px-8 py-4 bg-white bg-opacity-80 shadow-md fixed top-0 left-0 z-20">
+        <div className="flex items-center gap-8">
+          <Link href="/">
+            <span className="text-2xl font-bold text-blue-900 hover:text-blue-700 transition cursor-pointer">
+              🏘️ El Remanso
+            </span>
+          </Link>
           <SidebarLink href="/dashboard" label="Inicio" />
           <SidebarLink href="/dashboard/expensas" label="Expensas" />
           <SidebarLink href="/dashboard/usuarios" label="Usuarios" />
-        </nav>
-      </aside>
-
-      {/* Contenido principal */}
-      <div className="flex-1 flex flex-col">
-        {/* Top bar */}
-        <header className="bg-white shadow p-4 flex justify-between items-center">
+        </div>
+        <div className="flex items-center gap-4">
           <span className="text-gray-700">📧 {userEmail}</span>
           <button
             onClick={handleLogout}
-            className="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700 transition"
+            className="bg-blue-800 text-white px-4 py-1 rounded hover:bg-blue-900 transition"
           >
             Cerrar sesión
           </button>
-        </header>
-
-        {/* Main content */}
-        <main className="flex-1 p-8 bg-gray-100">{children}</main>
-      </div>
+        </div>
+      </nav>
+      {/* Espaciador para el navbar fijo */}
+      <div className="h-20" />
+      {/* Main content */}
+      <main className="flex-1 p-8 bg-gray-100">{children}</main>
     </div>
   );
 }

@@ -11,10 +11,10 @@ export default function HomePage() {
   return (
     <main className="min-h-screen">
       {/* Navbar */}
-      <nav className="w-full flex items-center justify-between px-8 py-4 bg-black bg-opacity-80 shadow-md fixed top-0 left-0 z-20">
+      <nav className="w-full flex items-center justify-between px-8 py-4 bg-white bg-opacity-80 shadow-md fixed top-0 left-0 z-20">
         <Link
           href="/"
-          className="text-2xl font-bold text-gray-100 hover:text-blue-400 transition"
+          className="text-2xl font-bold hover:text-gray-600 text-blue-900 transition"
         >
           El Remanso
         </Link>
@@ -47,28 +47,28 @@ export default function HomePage() {
         >
           <a
             href="#sobre"
-            className="text-gray-100 hover:text-blue-400 font-medium transition py-4 md:py-0 text-lg md:text-base text-center w-full md:w-auto"
+            className=" hover:text-gray-600 text-blue-900 font-medium transition py-4 md:py-0 text-lg md:text-base text-center w-full md:w-auto"
             onClick={() => setMenuOpen(false)}
           >
             Sobre nosotros
           </a>
           <a
             href="#ubicacion"
-            className="text-gray-100 hover:text-blue-400 font-medium transition py-4 md:py-0 text-lg md:text-base text-center w-full md:w-auto"
+            className=" hover:text-gray-600 text-blue-900 font-medium transition py-4 md:py-0 text-lg md:text-base text-center w-full md:w-auto"
             onClick={() => setMenuOpen(false)}
           >
             Ubicación
           </a>
           <a
             href="#amenities"
-            className="text-gray-100 hover:text-blue-400 font-medium transition py-4 md:py-0 text-lg md:text-base text-center w-full md:w-auto"
+            className=" hover:text-gray-600 text-blue-900 font-medium transition py-4 md:py-0 text-lg md:text-base text-center w-full md:w-auto"
             onClick={() => setMenuOpen(false)}
           >
             Instalaciones
           </a>
           <a
             href="/login"
-            className="bg-blue-500 text-white px-5 py-2 rounded hover:bg-blue-100 hover:text-blue-800 transition font-semibold ml-4 text-center w-full md:w-auto"
+            className="bg-blue-900 text-white px-5 py-2 rounded hover:bg-blue-200 hover:text-gray-600 transition font-medium ml-4 text-center w-full md:w-auto"
             onClick={() => setMenuOpen(false)}
           >
             Iniciar sesión
@@ -103,13 +103,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Sección siguiente */}
+      {/* Sobre nosotros */}
       <section
         id="sobre"
         className="min-h-screen bg-white flex items-center justify-center text-center p-8"
       >
         <div>
-          <h2 className="text-3xl font-semibold mb-4 mt-12">
+          <h2 className="text-3xl text-blue-900 font-semibold mb-4 mt-12">
             Sobre El Remanso
           </h2>
           <p className="max-w-2xl text-gray-700">
@@ -214,7 +214,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Texto descriptivo */}
           <div>
-            <h2 className="text-3xl font-bold mb-4">Ubicación</h2>
+            <h2 className="text-3xl text-blue-900 font-bold mb-4">Ubicación</h2>
             <p className="text-gray-700 mb-6">
               El Remanso está ubicado en una zona estratégica a minutos de la
               ciudad, rodeado de naturaleza y con acceso directo desde la ruta
@@ -225,7 +225,7 @@ export default function HomePage() {
               href="https://www.google.com/maps/place/El+Remanso,+Provincia+de+Buenos+Aires" // Reemplazá por tu ubicación exacta
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+              className="inline-block bg-blue-900 text-white px-6 py-3 rounded hover:bg-gray-800 transition"
             >
               Ver en Google Maps
             </a>
@@ -249,7 +249,7 @@ export default function HomePage() {
         id="amenities"
         className="bg-white py-20 px-6 md:px-10 lg:px-20 text-center"
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-gray-800">
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-blue-900">
           Instalaciones del Barrio
         </h2>
 
@@ -362,12 +362,20 @@ export default function HomePage() {
           />
           <button
             type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded transition"
+            className="w-1/2 md:w-full mx-auto bg-blue-800 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded transition"
           >
             Enviar
           </button>
         </form>
       </section>
+      <footer className="bg-gray-800 text-gray-500 py-6 text-center">
+        <p className="text-sm">
+          © {new Date().getFullYear()} El Remanso. Todos los derechos reservados.
+        </p>
+        <p className="text-xs mt-2">
+          Desarrollado por Guillermo Galarraga
+        </p>
+      </footer>
     </main>
   );
 }
