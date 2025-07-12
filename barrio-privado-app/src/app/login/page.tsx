@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
+import Link from "next/link";
 
 export default function LoginPage() {
   const supabase = createPagesBrowserClient();
@@ -31,12 +32,24 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex items-center justify-center h-screen bg-gray-100">
+    <main className="relative flex flex-col items-center justify-center h-screen" style={{ minHeight: "100vh" }}>
+      {/* Imagen de fondo */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-fixed"
+        style={{ backgroundImage: "url('/remanso05.jpg')", zIndex: 0 }}
+      />
+      {/* Overlay oscuro */}
+      <div className="absolute inset-0 bg-black bg-opacity-60" style={{ zIndex: 1 }} />
+      {/* Título */}
+      <div className="relative z-10 flex flex-col items-center mb-8">
+        <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">El Remanso</h1>
+      </div>
+      {/* Formulario centrado */}
       <form
         onSubmit={handleLogin}
-        className="bg-white p-6 rounded shadow-md w-full max-w-sm"
+        className="relative bg-blue-100 p-6 rounded shadow-md w-full max-w-sm z-10"
       >
-        <h2 className="text-2xl font-semibold mb-4 text-center">Iniciar sesión</h2>
+        <h2 className="text-2xl text-blue-900 font-semibold mb-4 text-center">Iniciar sesión</h2>
 
         {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
 
@@ -64,6 +77,13 @@ export default function LoginPage() {
           Iniciar sesión
         </button>
       </form>
+      
+      <Link
+        href="/"
+        className="relative z-10 mt-12 inline-block bg-white bg-opacity-80 text-blue-900 font-semibold px-4 py-2 rounded shadow hover:bg-opacity-100 transition"
+      >
+        Volver al inicio
+      </Link>
     </main>
   );
 }

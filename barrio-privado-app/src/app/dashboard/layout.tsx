@@ -32,7 +32,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-100">
       {/* Navbar  */}
       <nav className="w-full flex items-center justify-between px-8 py-4 bg-white bg-opacity-80 shadow-md fixed top-0 left-0 z-20">
         <div className="flex items-center gap-8">
@@ -49,7 +49,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <span className="text-gray-700">📧 {userEmail}</span>
           <button
             onClick={handleLogout}
-            className="bg-blue-800 text-white px-4 py-1 rounded hover:bg-blue-900 transition"
+            className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition font-medium"
           >
             Cerrar sesión
           </button>

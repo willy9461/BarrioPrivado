@@ -73,6 +73,13 @@ export default function HomePage() {
           >
             Iniciar sesión
           </a>
+          <a
+            href="/register"
+            className="bg-white text-blue-900 px-5 py-2 rounded  hover:bg-blue-100 hover:text-blue-900 transition font-medium ml-2 text-center w-full md:w-auto"
+            onClick={() => setMenuOpen(false)}
+          >
+            Registrarse
+          </a>
         </div>
       </nav>
 
