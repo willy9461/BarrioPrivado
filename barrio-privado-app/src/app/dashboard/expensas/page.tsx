@@ -17,12 +17,14 @@ export default function ExpensasPage() {
   const supabase = createClient();
   const [expensas, setExpensas] = useState<Expensa[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchExpensas() {
       const { data, error } = await supabase.from("Expensa").select("*");
 
       if (error) {
+        setError("No se pudieron cargar las expensas. Por favor, intentá de nuevo más tarde.");
         console.error("Error al cargar expensas:", error.message);
       } else {
         setExpensas(data);
@@ -34,7 +36,22 @@ export default function ExpensasPage() {
     fetchExpensas();
   }, [supabase]);
 
-  if (loading) return <p>Cargando expensas...</p>;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        <p className="text-gray-500 text-lg">Cargando expensas...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <strong className="font-bold">Error:</strong>
+        <span className="block sm:inline"> {error}</span>
+      </div>
+    );
+  }
 
   return (
     <div>

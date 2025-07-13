@@ -41,7 +41,7 @@ export default function HomePage() {
         </button>
         {/* Menú de navegación */}
         <div
-          className={`flex-col md:flex-row md:flex items-center gap-6 absolute md:static top-full left-0 w-full md:w-auto bg-black bg-opacity-95 md:bg-transparent transition-all duration-300 z-30 ${
+          className={`flex-col md:flex-row md:flex items-center gap-6 absolute md:static top-full left-0 w-full md:w-auto bg-gray-100 bg-opacity-95 md:bg-transparent transition-all duration-300 z-30 ${
             menuOpen ? "flex" : "hidden md:flex"
           }`}
         >

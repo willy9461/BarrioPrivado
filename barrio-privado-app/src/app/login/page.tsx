@@ -16,14 +16,22 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data: _, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
     if (error) {
       console.error("Login error:", error.message);
-      setError("Credenciales inválidas o email no confirmado.");
+      //  Verificamos si el error es por credenciales inválidas o email no confirmado
+      if (error.message === "Invalid login credentials") {
+        setError("Usuario o contraseña incorrectos.");
+      } else if (error.message === "Email not confirmed") {  // Este mensaje puede variar según la configuración de Supabase
+        setError("Por favor, confirma tu email antes de iniciar sesión. Revisa tu bandeja de entrada o spam.");
+      } else {
+        // Otro tipo de error
+        setError("Error al iniciar sesión: " + error.message);
+      }
     } else {
       console.log("Login exitoso. Redirigiendo...");
       router.refresh(); // <<--- línea clave

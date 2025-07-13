@@ -1,7 +1,6 @@
 "use client";
-
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import createClient from "@/lib/supabase/client";
 
@@ -41,9 +40,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               🏘️ El Remanso
             </span>
           </Link>
-          <SidebarLink href="/dashboard" label="Inicio" />
-          <SidebarLink href="/dashboard/expensas" label="Expensas" />
-          <SidebarLink href="/dashboard/usuarios" label="Usuarios" />
+          <NavLink href="/dashboard" label="Inicio" />
+          <NavLink href="/dashboard/expensas" label="Expensas" />
+          <NavLink href="/dashboard/usuarios" label="Usuarios" />
         </div>
         <div className="flex items-center gap-4">
           <span className="text-gray-700">📧 {userEmail}</span>
@@ -63,11 +62,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   );
 }
 
-function SidebarLink({ href, label }: { href: string; label: string }) {
+function NavLink({ href, label }: { href: string; label: string }) {
+  const isActive = (currentPath: string, linkPath: string) => currentPath === linkPath || (linkPath !== "/" && currentPath.startsWith(linkPath));
+  const path = usePathname();
+
   return (
     <Link
       href={href}
-      className="block px-3 py-2 rounded hover:bg-gray-700 transition-colors"
+      className={`block px-3 py-2 rounded hover:bg-gray-200 transition-colors ${isActive(path, href) ? "bg-gray-100 font-medium" : ""}`}
     >
       {label}
     </Link>
