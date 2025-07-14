@@ -1,15 +1,23 @@
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import { ReactNode } from "react";
 
-export const metadata = {
-  title: "El Remanso",
-  description: "Panel del barrio privado",
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "El Remanso App",
+  description: "Gestión para el barrio El Remanso",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="es">
-      <body>{children}</body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
+

@@ -3,10 +3,64 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createBrowserClient } from "@supabase/ssr";
+import { type User } from "@supabase/supabase-js";
+import LogoutButton from "@/components/LogoutButton";
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [formStatus, setFormStatus] = useState<
+    "idle" | "sending" | "success" | "error"
+  >("idle");
+
+  // Creamos el cliente de Supabase para el navegador
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      setUser(data.user);
+      setLoading(false);
+    };
+    getUser();
+  }, [supabase.auth]);
+
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus("sending"); // Inicia el envío
+
+    const form = e.target as HTMLFormElement;
+    const data = {
+      nombre: (form.elements.namedItem("nombre") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      mensaje: (form.elements.namedItem("mensaje") as HTMLTextAreaElement)
+        .value,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        setFormStatus("success"); // Éxito
+        form.reset();
+      } else {
+        setFormStatus("error"); // Error del servidor
+      }
+    } catch (error) {
+      console.error("Error de red al enviar el formulario:", error);
+      setFormStatus("error"); // Error de red o de cliente
+    }
+  };
 
   return (
     <main className="min-h-screen">
@@ -20,7 +74,7 @@ export default function HomePage() {
         </Link>
         {/* Botón hamburguesa para mobile */}
         <button
-          className="md:hidden text-gray-100 focus:outline-none"
+          className="md:hidden text-blue-900 focus:outline-none"
           onClick={() => setMenuOpen((open) => !open)}
           aria-label="Abrir menú"
         >
@@ -66,20 +120,36 @@ export default function HomePage() {
           >
             Instalaciones
           </a>
-          <a
-            href="/login"
-            className="bg-blue-900 text-white px-5 py-2 rounded hover:bg-blue-200 hover:text-gray-600 transition font-medium ml-4 text-center w-full md:w-auto"
-            onClick={() => setMenuOpen(false)}
-          >
-            Iniciar sesión
-          </a>
-          <a
-            href="/register"
-            className="bg-white text-blue-900 px-5 py-2 rounded  hover:bg-blue-100 hover:text-blue-900 transition font-medium ml-2 text-center w-full md:w-auto"
-            onClick={() => setMenuOpen(false)}
-          >
-            Registrarse
-          </a>
+          {/* Renderizado condicional basado en el estado del usuario */}
+          {!loading &&
+            (user ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  className="bg-blue-900 text-white px-5 py-2 rounded hover:bg-blue-200 hover:text-gray-600 transition font-medium ml-4 text-center w-full md:w-auto"
+                >
+                  Ir al Perfil
+                </Link>
+                <div className="ml-2">
+                  <LogoutButton />
+                </div>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="bg-blue-900 text-white px-5 py-2 rounded hover:bg-blue-200 hover:text-gray-600 transition font-medium ml-4 text-center w-full md:w-auto"
+                >
+                  Iniciar sesión
+                </Link>
+                <Link
+                  href="/signup"
+                  className="bg-white text-blue-900 px-5 py-2 rounded hover:bg-blue-100 hover:text-blue-900 transition font-medium ml-2 text-center w-full md:w-auto"
+                >
+                  Registrarse
+                </Link>
+              </>
+            ))}
         </div>
       </nav>
 
@@ -241,9 +311,8 @@ export default function HomePage() {
           {/* Mapa embebido */}
           <div className="w-full h-[400px] rounded-lg overflow-hidden shadow-lg">
             <iframe
+              className="w-full h-full"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3074.051401029997!2d-57.69190568924829!3d-30.250542240758712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95ad2937cad89ce1%3A0x65edbeeb80930cb9!2sBarrio%20El%20Remanso%20-%20Monte%20Caseros!5e1!3m2!1ses-419!2spt!4v1750616242446!5m2!1ses-419!2spt"
-              width="600"
-              height="450"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
@@ -322,28 +391,7 @@ export default function HomePage() {
       >
         <h2 className="text-3xl md:text-4xl font-bold mb-8">Contacto</h2>
         <form
-          onSubmit={async (e) => {
-            e.preventDefault();
-            const form = e.target as HTMLFormElement;
-            const data = {
-              nombre: (form.elements.namedItem("nombre") as HTMLInputElement)
-                .value,
-              email: (form.elements.namedItem("email") as HTMLInputElement).value,
-              mensaje: (form.elements.namedItem("mensaje") as HTMLTextAreaElement)
-                .value,
-            };
-            const res = await fetch("/api/contact", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(data),
-            });
-            if (res.ok) {
-              alert("¡Mensaje enviado!");
-              form.reset();
-            } else {
-              alert("Error al enviar el mensaje.");
-            }
-          }}
+          onSubmit={handleContactSubmit}
           className="max-w-xl mx-auto flex flex-col gap-6"
         >
           <input
@@ -369,19 +417,29 @@ export default function HomePage() {
           />
           <button
             type="submit"
-            className="w-1/2 md:w-full mx-auto bg-blue-800 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded transition"
+            className="w-1/2 md:w-full mx-auto bg-blue-800 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded transition disabled:bg-gray-500"
+            disabled={formStatus === "sending"}
           >
-            Enviar
+            {formStatus === "sending" ? "Enviando..." : "Enviar"}
           </button>
+          {formStatus === "success" && (
+            <p className="text-green-400 mt-4">
+              ¡Mensaje enviado con éxito! Nos pondremos en contacto pronto.
+            </p>
+          )}
+          {formStatus === "error" && (
+            <p className="text-red-400 mt-4">
+              Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.
+            </p>
+          )}
         </form>
       </section>
       <footer className="bg-gray-800 text-gray-500 py-6 text-center">
         <p className="text-sm">
-          © {new Date().getFullYear()} El Remanso. Todos los derechos reservados.
+          © {new Date().getFullYear()} El Remanso. Todos los derechos
+          reservados.
         </p>
-        <p className="text-xs mt-2">
-          Desarrollado por Guillermo Galarraga
-        </p>
+        <p className="text-xs mt-2">Desarrollado por Guillermo Galarraga</p>
       </footer>
     </main>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import createClient from "@/lib/supabase/client";
+import {createClient} from "@/lib/supabase/client";
 import Link from "next/link";
 
 export default function RegisterPage() {
@@ -16,17 +16,35 @@ export default function RegisterPage() {
     setError("");
     setSuccess("");
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
     });
 
     if (error) {
       setError(error.message);
-    } else {
-      setSuccess("Registro exitoso. Por favor, revisá tu correo y confirmá tu cuenta antes de iniciar sesión.");
-      setEmail("");
-      setPassword("");
+      return;
+    }
+
+    // Si el registro en Supabase Auth es exitoso, sincronizamos con nuestra DB
+    if (data.user) {
+      try {
+        const res = await fetch("/api/users/sync", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: data.user.id, email: data.user.email }),
+        });
+
+        if (!res.ok) {
+          throw new Error("Error al sincronizar el usuario con la base de datos.");
+        }
+
+        setSuccess("Registro exitoso. Por favor, revisá tu correo y confirmá tu cuenta antes de iniciar sesión.");
+        setEmail("");
+        setPassword("");
+      } catch (syncError: any) {
+        setError(syncError.message || "No se pudo completar el registro.");
+      }
     }
   };
 

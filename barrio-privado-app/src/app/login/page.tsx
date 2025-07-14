@@ -2,96 +2,93 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
+// Importa el cliente correcto desde la nueva librería @supabase/ssr
+import { createBrowserClient } from "@supabase/ssr";
 import Link from "next/link";
 
 export default function LoginPage() {
-  const supabase = createPagesBrowserClient();
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  // Esta es la forma moderna de crear el cliente en el navegador
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+
+  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError("");
+    setErrorMsg(null); // Limpia errores anteriores
 
-    const { data: _, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
     if (error) {
-      console.error("Login error:", error.message);
-      //  Verificamos si el error es por credenciales inválidas o email no confirmado
-      if (error.message === "Invalid login credentials") {
-        setError("Usuario o contraseña incorrectos.");
-      } else if (error.message === "Email not confirmed") {  // Este mensaje puede variar según la configuración de Supabase
-        setError("Por favor, confirma tu email antes de iniciar sesión. Revisa tu bandeja de entrada o spam.");
-      } else {
-        // Otro tipo de error
-        setError("Error al iniciar sesión: " + error.message);
-      }
-    } else {
-      console.log("Login exitoso. Redirigiendo...");
-      router.refresh(); // <<--- línea clave
-      router.push("/dashboard");
+      setErrorMsg(error.message);
+      return;
     }
+
+    // Redirige al dashboard si el login es exitoso
+    router.push("/dashboard");
+    router.refresh(); // Refresca la ruta para que el layout del servidor detecte la sesión
   };
 
   return (
-    <main className="relative flex flex-col items-center justify-center h-screen" style={{ minHeight: "100vh" }}>
-      {/* Imagen de fondo */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-fixed"
-        style={{ backgroundImage: "url('/remanso05.jpg')", zIndex: 0 }}
-      />
-      {/* Overlay oscuro */}
-      <div className="absolute inset-0 bg-black bg-opacity-60" style={{ zIndex: 1 }} />
-      {/* Título */}
-      <div className="relative z-10 flex flex-col items-center mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">El Remanso</h1>
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
+      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+        <h1 className="mb-6 text-center text-2xl font-bold">Iniciar Sesión</h1>
+        <form onSubmit={handleSignIn}>
+          <div className="mb-4">
+            <label
+              className="mb-2 block text-sm font-medium text-gray-700"
+              htmlFor="email"
+            >
+              Email
+            </label>
+            <input
+              id="email"
+              className="w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:outline-none focus:ring"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-6">
+            <label
+              className="mb-2 block text-sm font-medium text-gray-700"
+              htmlFor="password"
+            >
+              Contraseña
+            </label>
+            <input
+              id="password"
+              className="w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:outline-none focus:ring"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          {errorMsg && <p className="mb-4 text-center text-sm text-red-500">{errorMsg}</p>}
+          <button
+            type="submit"
+            className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+          >
+            Ingresar
+          </button>
+        </form>
+        <p className="mt-4 text-center text-sm">
+          ¿No tienes una cuenta?{" "}
+          <Link href="/signup" className="text-indigo-600 hover:underline">
+            Regístrate
+          </Link>
+        </p>
       </div>
-      {/* Formulario centrado */}
-      <form
-        onSubmit={handleLogin}
-        className="relative bg-blue-100 p-6 rounded shadow-md w-full max-w-sm z-10"
-      >
-        <h2 className="text-2xl text-blue-900 font-semibold mb-4 text-center">Iniciar sesión</h2>
-
-        {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
-
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="w-full px-3 py-2 mb-4 border rounded"
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="w-full px-3 py-2 mb-4 border rounded"
-        />
-
-        <button
-          type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded"
-        >
-          Iniciar sesión
-        </button>
-      </form>
-      
-      <Link
-        href="/"
-        className="relative z-10 mt-12 inline-block bg-white bg-opacity-80 text-blue-900 font-semibold px-4 py-2 rounded shadow hover:bg-opacity-100 transition"
-      >
-        Volver al inicio
-      </Link>
-    </main>
+    </div>
   );
 }
