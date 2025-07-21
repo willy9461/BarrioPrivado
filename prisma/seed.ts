@@ -17,7 +17,6 @@ async function main() {
         email: 'usuario1@test.com',
         name: 'Usuario Uno',
         role: Role.USER,
-        password: 'temp-pass-123', 
       },
     }),
     prisma.user.create({
@@ -25,7 +24,6 @@ async function main() {
         email: 'admin@test.com',
         name: 'Administrador',
         role: Role.ADMIN,
-        password: 'temp-pass-456',
       },
     }),
   ]);
