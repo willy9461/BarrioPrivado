@@ -2,39 +2,57 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-// Importa el cliente correcto desde la nueva librería @supabase/ssr
-import { createBrowserClient } from "@supabase/ssr";
+import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  // Esta es la forma moderna de crear el cliente en el navegador
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  const supabase = createClient();
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrorMsg(null); // Limpia errores anteriores
+    setErrorMsg(null);
+    setLoading(true);
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
     if (error) {
       setErrorMsg(error.message);
+      setLoading(false);
       return;
     }
 
-    // Redirige al dashboard si el login es exitoso
+    // Si el login es exitoso, sincronizar con nuestra base de datos
+    if (data.user) {
+      try {
+        const res = await fetch("/api/users/sync", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            id: data.user.id, 
+            email: data.user.email 
+          }),
+        });
+
+        if (!res.ok) {
+          console.warn("Error al sincronizar usuario, pero login exitoso");
+        }
+      } catch (syncError) {
+        console.warn("Error de sincronización:", syncError);
+      }
+    }
+
+    // Redirige al dashboard
     router.push("/dashboard");
-    router.refresh(); // Refresca la ruta para que el layout del servidor detecte la sesión
+    router.refresh();
   };
 
   return (
@@ -77,9 +95,10 @@ export default function LoginPage() {
           {errorMsg && <p className="mb-4 text-center text-sm text-red-500">{errorMsg}</p>}
           <button
             type="submit"
-            className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+            disabled={loading}
+            className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Ingresar
+            {loading ? "Iniciando sesión..." : "Ingresar"}
           </button>
         </form>
         <p className="mt-4 text-center text-sm">
